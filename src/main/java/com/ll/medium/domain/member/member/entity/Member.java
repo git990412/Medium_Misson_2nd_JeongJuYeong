@@ -40,7 +40,7 @@ public class Member extends BaseEntity {
 
     private String password;
 
-        @Builder.Default
+    @Builder.Default
     @ManyToMany(fetch = FetchType.LAZY)
     private Set<Role> roles = new HashSet<>();
 }
