@@ -1,6 +1,5 @@
 package com.ll.medium.global.security.config;
 
-import org.h2.engine.User;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
