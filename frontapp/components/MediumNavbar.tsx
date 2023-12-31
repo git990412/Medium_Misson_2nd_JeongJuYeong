@@ -12,9 +12,7 @@ import Link from "next/link";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store/store";
-import { instance } from "@/config/axiosConfig";
 import { useRouter } from "next/navigation";
-import { AxiosError } from "axios";
 import { logoutAsync } from "@/store/userSlice";
 
 const MediumNavbar = () => {
