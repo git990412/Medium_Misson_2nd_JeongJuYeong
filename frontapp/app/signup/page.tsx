@@ -7,6 +7,7 @@ import EmailInput from "../../components/EmailInput";
 import PasswordInput from "../../components/PasswordInput";
 import { useRouter } from "next/navigation";
 import { AxiosError } from "axios";
+import PublicRoute from "@/components/PublicRoute";
 
 const Page = () => {
   const router = useRouter();
@@ -103,4 +104,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default PublicRoute(Page);
