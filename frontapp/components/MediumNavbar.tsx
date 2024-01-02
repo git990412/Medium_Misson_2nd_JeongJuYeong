@@ -13,7 +13,9 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store/store";
 import { useRouter } from "next/navigation";
-import { logoutAsync } from "@/store/userSlice";
+import { logout } from "@/store/userSlice";
+import { instance } from "@/config/axiosConfig";
+import { AxiosError } from "axios";
 
 const MediumNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -23,10 +25,18 @@ const MediumNavbar = () => {
 
   const logoutF = () => {
     // 로그아웃 로직
-    dispatch(logoutAsync()).then(() => {
+    instance
+      .post("/members/logout")
+      .then(() => {
+        dispatch(logout());
         alert("로그아웃 되었습니다.");
-        router.push("/");
-    })
+        router.replace("/");
+      })
+      .catch((err: AxiosError) => {
+        dispatch(logout());
+        alert("로그아웃 되었습니다.");
+        router.replace("/");
+      });
   };
 
   const menuItems = [
@@ -43,7 +53,7 @@ const MediumNavbar = () => {
     (item) =>
       (isLoggedIn && item.permission === "auth") ||
       (!isLoggedIn && item.permission === "anonymous") ||
-      item.permission === "all",
+      item.permission === "all"
   );
 
   // 메뉴 아이템 렌더링을 위한 컴포넌트
