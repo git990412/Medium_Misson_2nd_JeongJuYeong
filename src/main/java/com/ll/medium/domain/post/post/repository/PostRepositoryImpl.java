@@ -21,7 +21,6 @@ public class PostRepositoryImpl implements PostRepositoryCustom {
     public Page<Post> findByKw(String kwType, String kw, String sortCode, Pageable pageable) {
         BooleanBuilder builder = new BooleanBuilder();
 
-        boolean first = true;
         Arrays.stream(kwType.split(",")).forEach(
                 k -> {
                     switch (k) {
