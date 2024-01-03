@@ -60,6 +60,8 @@ public class JwtFilter extends OncePerRequestFilter {
                 response.addHeader("Set-Cookie", deleteRefreshToken.toString());
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
             }
+        } catch (Exception e) {
+            logger.error("Cannot set user authentication: {}", e);
         }
 
         filterChain.doFilter(request, response);

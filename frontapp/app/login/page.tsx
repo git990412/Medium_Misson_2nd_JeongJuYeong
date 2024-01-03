@@ -52,6 +52,10 @@ const Page = () => {
       });
   };
 
+  const kakaoLogin = () => {
+    window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_CALLBACK_URL}&response_type=code`;
+  };
+
   return (
     <div className="flex justify-center">
       <div className="w-3/4 max-w-sm flex flex-col items-center">
@@ -77,6 +81,13 @@ const Page = () => {
             로그인
           </Button>
         </form>
+        <Button
+          className={"w-full mt-2"}
+          color={"warning"}
+          onClick={kakaoLogin}
+        >
+          카카오로그인
+        </Button>
       </div>
     </div>
   );
