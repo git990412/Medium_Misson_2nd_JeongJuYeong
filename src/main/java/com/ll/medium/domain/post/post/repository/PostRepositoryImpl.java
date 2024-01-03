@@ -66,9 +66,9 @@ public class PostRepositoryImpl implements PostRepositoryCustom {
         Arrays.stream(kwType.split(",")).forEach(
                 k -> {
                     switch (k) {
-                        case "title" -> builder.or(post.title.containsIgnoreCase(kw));
-                        case "body" -> builder.or(post.body.containsIgnoreCase(kw));
-                        case "author" -> builder.or(post.member.username.containsIgnoreCase(kw));
+                        case "title" -> builder.and(post.title.containsIgnoreCase(kw));
+                        case "body" -> builder.and(post.body.containsIgnoreCase(kw));
+                        case "author" -> builder.and(post.member.username.containsIgnoreCase(kw));
                         default -> builder.and(
                                 post.title.containsIgnoreCase(kw)
                                         .or(post.body.containsIgnoreCase(kw))
