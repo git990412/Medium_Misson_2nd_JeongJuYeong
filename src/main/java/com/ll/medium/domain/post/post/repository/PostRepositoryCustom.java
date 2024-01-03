@@ -6,4 +6,6 @@ import org.springframework.data.domain.Pageable;
 
 public interface PostRepositoryCustom {
     public Page<Post> findByKw(String kwType, String kw, String sortCode, Pageable pageable);
+
+    public Page<Post> getMyList(String kwType, String kw, String sortCode, Pageable pageable, long memberId);
 }

@@ -33,6 +33,11 @@ public class PostService {
         return postRepository.findByKw(kwType, kw, sortCode, pageable).map(PostDto::new);
     }
 
+    public Page<PostDto> getMyList(String kwType, String kw, String sortCode, Pageable pageable,
+            long userId) {
+        return postRepository.getMyList(kwType, kw, sortCode, pageable, userId).map(PostDto::new);
+    }
+
     public Page<PostDto> getMyList(int page, long userId) {
         Pageable pageable = PageRequest.of(page, 10);
         return postRepository.findByMemberIdOrderByIdDesc(pageable, userId).map(PostDto::new);

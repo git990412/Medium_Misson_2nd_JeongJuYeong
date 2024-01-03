@@ -45,8 +45,14 @@ public class ApiV1PostController {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/myList")
-    public ResponseEntity<Page<PostDto>> getMyList(@RequestParam(value = "page", defaultValue = "0") int page) {
-        return ResponseEntity.ok().body(postService.getMyList(page, rq.getUser().getId()));
+    public ResponseEntity<Page<PostDto>> getMyList(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "sortCode", defaultValue = "") String sortCode,
+            @RequestParam(value = "kwType", defaultValue = "") String kwType,
+            @RequestParam(value = "kw", defaultValue = "") String kw) {
+        Pageable pageable = PageRequest.of(page, 10);
+        return ResponseEntity.ok()
+                .body(postService.getMyList(kwType, kw, sortCode, pageable, rq.getUser().getId()));
     }
 
     @GetMapping("/{id}")
