@@ -1,25 +1,40 @@
-import { ComponentType, FC, useEffect } from "react";
+import { ComponentType, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../store/store"; // Redux store의 RootState를 가져옵니다.
+import { RootState } from "../store/store";
 import { useRouter } from "next/navigation";
 
-const PrivateRoute = (WrappedComponent: ComponentType) => {
-  return (props: any) => {
-    // 실제 어플리케이션에서는 로그인 상태를 글로벌 상태, 쿠키,
-    // 또는 로컬 스토리지에서 가져오거나 백엔드와의 통신을 통해 결정해야 합니다.
-    const isLoggedIn = useSelector((state: RootState) => state.user.isLoggedIn);
-    const router = useRouter();
+// 커스텀 훅으로 변경하여 Hooks 사용 규칙을 준수합니다.
+const usePrivateRoute = (WrappedComponent: ComponentType) => {
+  const isLoggedIn = useSelector((state: RootState) => state.user.isLoggedIn);
+  const router = useRouter();
 
-    useEffect(() => {
-      if (!isLoggedIn) {
-        // 로그인 상태일 때 리다이렉션할 경로
-        router.replace("/");
-      }
-    }, [isLoggedIn, router]);
+  useEffect(() => {
+    if (!isLoggedIn) {
+      router.replace("/");
+    }
+  }, [isLoggedIn, router]);
 
-    // 로그인하지 않은 경우에만 컴포넌트를 렌더링합니다.
-    return isLoggedIn ? <WrappedComponent {...props} /> : null;
-  };
+  return isLoggedIn ? WrappedComponent : null;
 };
+
+const PrivateRoute = (WrappedComponent: ComponentType) => {
+  const ComponentWithPrivateRoute = (props: any) => {
+    const ComponentOrNull = usePrivateRoute(WrappedComponent);
+    // 컴포넌트가 null이 아닌 경우에만 렌더링합니다.
+    return ComponentOrNull ? <ComponentOrNull {...props} /> : null;
+  };
+
+  // 고차 컴포넌트에 이름을 지정합니다.
+  ComponentWithPrivateRoute.displayName = `PrivateRoute(${getDisplayName(
+    WrappedComponent
+  )})`;
+
+  return ComponentWithPrivateRoute;
+};
+
+// 컴포넌트의 displayName을 가져오는 함수
+function getDisplayName(WrappedComponent: ComponentType) {
+  return WrappedComponent.displayName || WrappedComponent.name || "Component";
+}
 
 export default PrivateRoute;

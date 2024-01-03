@@ -3,8 +3,8 @@ import TextEditor from "@/components/TextEditor";
 import { components } from "@/types/schema";
 import { useEffect, useState } from "react";
 import { instance } from "@/config/axiosConfig";
-import PrivateRoute from "@/components/PrivateRoute";
 import { useRouter } from "next/navigation";
+import PrivateRoute from "@/components/PrivateRoute";
 
 const Page = ({ params }: { params: { index: string } }) => {
   const [post, setPost] = useState<components["schemas"]["PostDto"]>({});

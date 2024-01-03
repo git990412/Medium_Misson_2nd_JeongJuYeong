@@ -1,4 +1,5 @@
 "use client";
+
 import PrivateRoute from "@/components/PrivateRoute";
 import TextEditor from "@/components/TextEditor";
 import { instance } from "@/config/axiosConfig";

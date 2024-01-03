@@ -217,6 +217,7 @@ const Page = ({ params }: { params: { index: string } }) => {
       <Divider className={"mt-2"} />
       {post.comments?.map((comment) => (
         <CommentBox
+          key={comment.id}
           comment={comment}
           index={params.index}
           loadPost={loadPost}
