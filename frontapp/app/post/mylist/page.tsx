@@ -1,3 +1,4 @@
+"use client";
 import PostTable from "@/components/PostTable";
 import PrivateRoute from "@/components/PrivateRoute";
 
