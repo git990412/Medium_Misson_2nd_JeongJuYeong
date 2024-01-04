@@ -122,6 +122,8 @@ public class ApiV1PostController {
         // 파일을 저장할 경로 설정
         File destination = new File(uploadDir + fileName);
 
+        destination.getParentFile().mkdirs();
+
         // 파일 저장
         file.transferTo(destination);
 
