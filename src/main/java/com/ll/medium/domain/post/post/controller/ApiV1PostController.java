@@ -118,10 +118,25 @@ public class ApiV1PostController {
             return ResponseEntity.badRequest().body("fail: no image resource");
         }
 
-        String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
+        String originalFilename = file.getOriginalFilename();
+        if (originalFilename == null) {
+            return ResponseEntity.badRequest().body("fail: no original file name");
+        }
+
+        // 원래 파일 이름에서 확장자 추출
+        String extension = "";
+        int dotIndex = originalFilename.lastIndexOf(".");
+        if (dotIndex >= 0) {
+            extension = originalFilename.substring(dotIndex);
+        }
+
+        // 파일 이름을 UUID와 원래 파일의 확장자로 구성
+        String fileName = UUID.randomUUID().toString() + extension;
+
         // 파일을 저장할 경로 설정
         File destination = new File(uploadDir + fileName);
 
+        // 폴더가 존재하지 않으면 폴더 생성
         destination.getParentFile().mkdirs();
 
         // 파일 저장
