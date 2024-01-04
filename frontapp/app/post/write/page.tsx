@@ -5,8 +5,9 @@ import TextEditor from "@/components/TextEditor";
 import { instance } from "@/config/axiosConfig";
 import "@/styles/quillStyle.css";
 import { components } from "@/types/schema";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import "react-quill/dist/quill.snow.css";
 
 const Page = () => {
@@ -15,8 +16,16 @@ const Page = () => {
     published: true,
   });
 
+  const DynamicTextEditor = useMemo(() => {
+    return dynamic(() => import("@/components/TextEditor"), {
+      loading: () => <p>loading...</p>,
+
+      ssr: false,
+    });
+  }, []);
+
   return (
-    <TextEditor
+    <DynamicTextEditor
       post={post}
       setPost={setPost}
       onSubmit={() => {
