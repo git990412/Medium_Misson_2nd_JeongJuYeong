@@ -5,4 +5,4 @@ spring:
     username: lldjlocal
     password: 1234
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/medium_prod?useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://172.17.0.1:3306/medium_prod
